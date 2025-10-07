@@ -1,0 +1,4 @@
+# Canonicalization helpers
+http://well2gather.com/*  https://well2gather.com/:splat  301!
+http://www.well2gather.com/*  https://well2gather.com/:splat  301!
+https://www.well2gather.com/*  https://well2gather.com/:splat  301!
