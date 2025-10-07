@@ -80,19 +80,19 @@
 </div>
 <div class="tabs">
 <div aria-label="Concept pillars" class="tablist" role="tablist">
-<button aria-controls="panel-move" aria-selected="true" class="tab is-active" id="tab-move" role="tab" tabindex="0">
+<button aria-controls="panel-move" aria-selected="true" class="tab is-active" id="tab-move" role="tab">
 <svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4 2.5 7-7-4.5L5 20l2.5-7L2 9h7z"></path></svg>
           Move
         </button>
-<button aria-controls="panel-explore" aria-selected="false" class="tab" id="tab-explore" role="tab" tabindex="-1">
+<button aria-controls="panel-explore" aria-selected="false" class="tab" id="tab-explore" role="tab">
 <svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3 21l18-9L3 3v7l10 2-10 2z"></path></svg>
           Explore
         </button>
-<button aria-controls="panel-play" aria-selected="false" class="tab" id="tab-play" role="tab" tabindex="-1">
+<button aria-controls="panel-play" aria-selected="false" class="tab" id="tab-play" role="tab">
 <svg aria-hidden="true" viewbox="0 0 24 24"><path d="M7 4h10v2H7zM4 8h16v2H4zM7 12h10v2H7zM4 16h16v2H4z"></path></svg>
           Play
         </button>
-<button aria-controls="panel-learn" aria-selected="false" class="tab" id="tab-learn" role="tab" tabindex="-1">
+<button aria-controls="panel-learn" aria-selected="false" class="tab" id="tab-learn" role="tab">
 <svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zm0 7l7.5-4.17v6.67L12 16l-7.5-3.5V5.83L12 10z"></path></svg>
           Learn
         </button>
@@ -339,38 +339,33 @@
   })();
   </script>
 <script>
-document.addEventListener('DOMContentLoaded', function(){
+// Accessible tabs for Concept section
+(function(){
   const root = document.querySelector('.section-concept .tabs');
   if(!root) return;
   const tabs = Array.from(root.querySelectorAll('.tablist .tab'));
   const panels = Array.from(root.querySelectorAll('.panels .panel'));
-  function showById(id){
-    panels.forEach(p => {
-      if(p.id === id){
-        p.removeAttribute('hidden');
-        p.classList.add('is-active');
-      } else {
-        p.setAttribute('hidden','');
-        p.classList.remove('is-active');
+  function activate(i){
+    tabs.forEach((t,idx)=>{
+      const selected = idx===i;
+      t.classList.toggle('is-active', selected);
+      t.setAttribute('aria-selected', selected?'true':'false');
+      const p = panels[idx];
+      if(p){
+        p.classList.toggle('is-active', selected);
+        if(selected){ p.removeAttribute('hidden'); } else { p.setAttribute('hidden',''); }
       }
     });
-    tabs.forEach(t => {
-      const sel = t.getAttribute('aria-controls') === id;
-      t.classList.toggle('is-active', sel);
-      t.setAttribute('aria-selected', sel ? 'true' : 'false');
-      t.setAttribute('tabindex', sel ? '0' : '-1');
-    });
   }
-  tabs.forEach(t => {
-    t.addEventListener('click', () => showById(t.getAttribute('aria-controls')));
-    t.addEventListener('keydown', (e) => {
-      const i = tabs.indexOf(t);
-      if(e.key === 'ArrowRight'){ e.preventDefault(); tabs[(i+1)%tabs.length].focus(); }
-      if(e.key === 'ArrowLeft'){ e.preventDefault(); tabs[(i-1+tabs.length)%tabs.length].focus(); }
+  tabs.forEach((t,idx)=>{
+    t.addEventListener('click', ()=>activate(idx));
+    t.addEventListener('keydown', (e)=>{
+      if(e.key==='ArrowRight'){ e.preventDefault(); activate((idx+1)%tabs.length); tabs[(idx+1)%tabs.length].focus(); }
+      if(e.key==='ArrowLeft'){ e.preventDefault(); activate((idx-1+tabs.length)%tabs.length); tabs[(idx-1+tabs.length)%tabs.length].focus(); }
     });
   });
-  if(tabs[0]) showById(tabs[0].getAttribute('aria-controls'));
-});
+  activate(0);
+})();
 </script>
 </body>
 </html>

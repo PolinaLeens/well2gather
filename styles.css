@@ -234,14 +234,3 @@ ul{margin:0; padding-left:18px;}
 .atag-text{ display:flex; flex-direction:column; line-height:1.2; }
 .atag-text strong{ font-size:15px; }
 .atag-text span{ font-size:13px; opacity:.8; }
-
-
-/* GH Pages: ensure hidden panels are actually hidden */
-.section-concept .panel[hidden]{ display:none !important; }
-/* Keep only one panel visible if classes get out of sync */
-.section-concept .panels .panel{ margin:0; }
-/* Slight spacing normalization for Concept */
-@media(max-width: 780px){
-  .section-concept .panel p{ line-height: 1.75; }
-  .section-concept .bullets{ gap: 10px; }
-}
