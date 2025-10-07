@@ -234,18 +234,3 @@ ul{margin:0; padding-left:18px;}
 .atag-text{ display:flex; flex-direction:column; line-height:1.2; }
 .atag-text strong{ font-size:15px; }
 .atag-text span{ font-size:13px; opacity:.8; }
-
-
-/* === Venue single-image layout (v2025-10-07h) === */
-.section-venue .venue-photo,
-.section-venue figure{ max-width: 980px; margin-left:auto; margin-right:auto; }
-.section-venue img{ width:100%; height:auto; display:block; border-radius:22px; }
-
-
-/* Venue river view image layout */
-.section-venue .venue-photo{ max-width: 1100px; margin: 0 auto 18px; }
-.section-venue .venue-photo img{ width:100%; height:auto; display:block; border-radius: 22px; }
-@media(max-width:780px){
-  .section-venue .venue-photo{ margin-bottom: 14px; }
-  .section-venue .venue-photo img{ border-radius: 16px; }
-}
